@@ -1,0 +1,29 @@
+{
+    "name": "smw/zklib",
+    "description": "Attendance",
+    "keywords": [
+        "Biometric",
+        "PHP",
+        "Laravel",
+        "Fingerprint",
+        "Sync Attendance"
+    ],
+    "type": "library",
+    "license": "LGPL-2.0-only",
+    "authors": [
+        {
+            "name": "Syed Muhammad Waqas",
+            "email": "smwaqas3@gmail.com",
+            "website": "https://github.com/syedmuhammadwaqas"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "php": "*"
+    },
+    "autoload": {
+     "psr-4": {
+         "ZKLib\\": "src/"
+     }
+ }
+}
