@@ -228,11 +228,12 @@ class ZKLib
      * @param string $name (max length = 24)
      * @param int|string $password (max length = 8, only numbers - depends device setting)
      * @param int $role Default Util::LEVEL_USER
+     * @param int $cardno Default 0 (max length = 10, only numbers)
      * @return bool|mixed
      */
-    public function setUser($uid, $userid, $name, $password, $role = Util::LEVEL_USER)
+    public function setUser($uid, $userid, $name, $password, $role = Util::LEVEL_USER, $cardno = 0)
     {
-        return (new ZK\User())->set($this, $uid, $userid, $name, $password, $role);
+        return (new ZK\User())->set($this, $uid, $userid, $name, $password, $role, $cardno);
     }
 
     /**
@@ -240,7 +241,7 @@ class ZKLib
      * TODO: Can get data, but don't know how to parse the data. Need more documentation about it...
      *
      * @param integer $uid Unique ID (max 65535)
-     * @return array Binary fingerprint data array
+     * @return array Binary fingerprint data array (where key is finger ID (0-9))
      */
     public function getFingerprint($uid)
     {
@@ -249,23 +250,23 @@ class ZKLib
 
     /**
      * Set fingerprint data array
-     * TODO: Still return false. Need more documentation about it...
+     * TODO: Still can not set fingerprint. Need more documentation about it...
      *
-     * @param array $data Binary fingerprint data array
-     * @return bool
+     * @param integer $uid Unique ID (max 65535)
+     * @param array $data Binary fingerprint data array (where key is finger ID (0-9) same like returned array from 'getFingerprint' method)
+     * @return int Count of added fingerprints
      */
-    public function setFingerprint(array $data)
+    public function setFingerprint($uid, array $data)
     {
-        return (new ZK\Fingerprint())->set($this, $data);
+        return (new ZK\Fingerprint())->set($this, $uid, $data);
     }
 
     /**
-     * Remove fingerprint by UID and fingers ID
-     * TODO: Still can be removed one by one per query, but not all. Need more documentation about it...
+     * Remove fingerprint by UID and fingers ID array
      *
      * @param integer $uid Unique ID (max 65535)
      * @param array $data Fingers ID array (0-9)
-     * @return bool
+     * @return int Count of deleted fingerprints
      */
     public function removeFingerprint($uid, array $data)
     {
